@@ -1,11 +1,11 @@
 #include "Helpers.hpp"
 
 namespace Helpers {
-    const Face wrap_decrement(const Face face) {
+    const Face wrapDecrement(const Face face) {
         return Face(face == 1 ? 4 : face - 1);
     }
 
-    const Face wrap_increment(const Face face) {
+    const Face wrapIncrement(const Face face) {
         return Face(face == 4 ? 1 : face + 1);
     }
 
@@ -17,7 +17,7 @@ namespace Helpers {
         return ((minuend - subtrahend - lower) % range + range) % range + lower;
     }
 
-    const int get_turns(const Face from, const Face to) {
+    const int getTurns(const Face from, const Face to) {
         int clockwise = (to - from + 4) % 4;
         int anti_clockwise = (from - to + 4) % 4;
 

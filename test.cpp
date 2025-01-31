@@ -510,7 +510,7 @@ int main()
                 case 1:
                 case -1:
                     rotate_side(cube, green_side, N * -1);
-                    rotate_side(cube, c_edge, -1 * N);
+                    rotate_side(cube, c_edge, -N);
 
                     break;
 
@@ -529,7 +529,7 @@ int main()
             {
                 const int N = get_turns(c_edge, green_side);
 
-                rotate_side(cube, 5, -1 * N);
+                rotate_side(cube, 5, -N);
                 rotate_side(cube, c_edge, -1);
                 rotate_side(cube, Face::TOP, -1);
                 rotate_side(cube, wrap_increment(c_edge));

@@ -8,7 +8,7 @@ class CrossSolver: public Solver {
         Cube& cube;
 
         void alignEdge(Face face, int N);
-        const std::unordered_set<Face> get_aligned_faces() const;
+        std::unordered_set<Face> getAlignedFaces();
         bool hasAlignedEdge(Face side);
 
     public:
