@@ -18,11 +18,11 @@ class Cube {
     public:
         Cube();
 
-        void print();
+        void print() const;
 
         void rotateSide(const Face side, int turns = 1);
         void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }
         const std::array<Face, 54> getCube() const;
 
-        Face operator [](uint8_t index);
+        const Face operator [](const uint8_t index) const;
 };

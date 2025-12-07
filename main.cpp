@@ -2,6 +2,7 @@
 #include "CornerSolver.hpp"
 #include <iostream>
 #include "CrossSolver.hpp"
+#include "EdgesSolver.hpp"
 
 int main() {
     std::cout << "here 1\n";
@@ -11,10 +12,13 @@ int main() {
 
     CrossSolver myCrossSolve(mycube);
     CornerSolver mySolver(mycube);
+    EdgesSolver myEdgeSolver(mycube);
 
     myCrossSolve.solve();
     std::cout << "Cross Solved!" << std::endl;
     mySolver.solve();
+    std::cout << "Corners solved!" << std::endl;
+    myEdgeSolver.solve();
 
     return 0;
 }

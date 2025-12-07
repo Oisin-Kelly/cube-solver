@@ -35,7 +35,7 @@ Cube::Cube()
     rotateR(true);
 }
 
-void Cube::rotateFace(Face face = Face::UP, bool clockwise = true)
+void Cube::rotateFace(const Face face = Face::UP, const bool clockwise = true)
 {
     using namespace std;
 
@@ -53,16 +53,16 @@ void Cube::rotateFace(Face face = Face::UP, bool clockwise = true)
         cube[face * 9 + i] = temp[transforms[i]];
 }
 
-void Cube::rotateU(bool clockwise = true)
+void Cube::rotateU(const bool clockwise = true)
 {
     using namespace std;
 
     rotateFace(Face::UP, clockwise);
 
-    array<Face, 3> front = {cube[9], cube[10], cube[11]};
-    array<Face, 3> right = {cube[18], cube[19], cube[20]};
-    array<Face, 3> back = {cube[27], cube[28], cube[29]};
-    array<Face, 3> left = {cube[36], cube[37], cube[38]};
+    const array<Face, 3> front = {cube[9], cube[10], cube[11]};
+    const array<Face, 3> right = {cube[18], cube[19], cube[20]};
+    const array<Face, 3> back = {cube[27], cube[28], cube[29]};
+    const array<Face, 3> left = {cube[36], cube[37], cube[38]};
 
     if (clockwise)
     {
@@ -80,7 +80,7 @@ void Cube::rotateU(bool clockwise = true)
     }
 }
 
-void Cube::rotateF(bool clockwise = true)
+void Cube::rotateF(const bool clockwise = true)
 {
     using namespace std;
 
@@ -107,7 +107,7 @@ void Cube::rotateF(bool clockwise = true)
     }
 }
 
-void Cube::rotateR(bool clockwise = true)
+void Cube::rotateR(const bool clockwise = true)
 {
     using namespace std;
 
@@ -134,7 +134,7 @@ void Cube::rotateR(bool clockwise = true)
     }
 }
 
-void Cube::rotateB(bool clockwise = true)
+void Cube::rotateB(const bool clockwise = true)
 {
     using namespace std;
 
@@ -161,7 +161,7 @@ void Cube::rotateB(bool clockwise = true)
     }
 }
 
-void Cube::rotateL(bool clockwise = true)
+void Cube::rotateL(const bool clockwise = true)
 {
     using namespace std;
 
@@ -188,7 +188,7 @@ void Cube::rotateL(bool clockwise = true)
     }
 }
 
-void Cube::rotateD(bool clockwise = true)
+void Cube::rotateD(const bool clockwise = true)
 {
     using namespace std;
 
@@ -215,7 +215,7 @@ void Cube::rotateD(bool clockwise = true)
     }
 }
 
-void Cube::print()
+void Cube::print() const
 {
     using namespace std;
 
@@ -230,7 +230,6 @@ void Cube::print()
         cout << static_cast<int>(cube[i]) << " ";
         if (takeNewLine(i))
             cout << endl;
-        ;
     }
 
     cout << "\nFRONT   RIGHT   BACK    LEFT" << endl;
@@ -245,22 +244,17 @@ void Cube::print()
             cout << "  ";
         }
         cout << endl;
-        ;
     }
     cout << endl;
-    ;
 
     cout << "BOTTOM:" << endl;
-    ;
     for (int i = 45; i < 54; i++)
     {
         std::cout << static_cast<int>(cube[i]) << " ";
         if (takeNewLine(i - 45))
             cout << endl;
-        ;
     }
     cout << endl;
-    ;
 }
 
 void Cube::rotateSide(const Face side, int turns)
@@ -301,10 +295,12 @@ void Cube::rotateSide(const Face side, int turns)
     }
 }
 
-const std::array<Face, 54> Cube::getCube() const {
-    return this->cube;
+const std::array<Face, 54> Cube::getCube() const
+{
+    return cube;
 }
 
-Face Cube::operator [](uint8_t index) {
+const Face Cube::operator[](const uint8_t index) const
+{
     return cube[index];
 }

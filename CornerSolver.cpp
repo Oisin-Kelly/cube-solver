@@ -22,29 +22,20 @@ std::unordered_set<std::pair<Face, Face>, PairHash> CornerSolver::getAlignedCorn
     return alignedCorners;
 }
 
-std::ostream &operator<<(std::ostream &os, const std::pair<Face, Face> &p)
-{
-    os << "(" << (int)p.first << ", " << (int)p.second << ")";
-    return os;
-}
-
 void CornerSolver::solve()
 {
     std::unordered_set<std::pair<Face, Face>, PairHash> alignedCorners = getAlignedCorners();
 
     while (alignedCorners.size() != 4)
     {
-        for(int i = 0; i < Constants::CORNERS.size(); ++i){
+        for (int i = 0; i < Constants::CORNERS.size(); ++i)
+        {
             const std::tuple<int, int, int> corner = Constants::CORNERS[i];
-
-            // const int topEdge = corner.first;
-            // const int leftEdge = corner.second.first;
-            // const int rightEdge = corner.second.second;
 
             const int topEdge = std::get<0>(corner);
             const int leftEdge = std::get<1>(corner);
             const int rightEdge = std::get<2>(corner);
-            
+
             if (cube[topEdge] != UP && cube[leftEdge] != UP && cube[rightEdge] != UP)
                 continue;
 
@@ -59,7 +50,6 @@ void CornerSolver::solve()
             {
                 if (face1 == cube[leftEdge + 2])
                 { // its already in its spot
-                    std::cout << (int)face1 << (int)face2 << std::endl;
                     alignedCorners.insert({face1, face2});
 
                     if (alignedCorners.size() == 4)
@@ -90,18 +80,22 @@ void CornerSolver::solve()
                 const uint8_t row = Helpers::get_row(greenEdge);
                 std::tuple<int, int, int> bottomCorner = corner;
 
-                if (row == 0) {
-                    if (column == 0) { // left
+                if (row == 0)
+                {
+                    if (column == 0)
+                    { // left
                         cube.rotateSide(greenEdge / 9, -1);
                         cube.rotateSide(DOWN, -1);
                         cube.rotateSide(greenEdge / 9);
-                    
+
                         bottomCorner = Constants::CORNERS[Helpers::wrapDecrement(Face(i + 1)) - 1 + 4];
-                    } else { // right
+                    }
+                    else
+                    { // right
                         cube.rotateSide(greenEdge / 9);
                         cube.rotateSide(DOWN);
                         cube.rotateSide(greenEdge / 9, -1);
-                    
+
                         bottomCorner = Constants::CORNERS[Helpers::wrapIncrement(Face(i + 1)) - 1 + 4];
                     }
                 }
@@ -114,14 +108,17 @@ void CornerSolver::solve()
                 const Face bottomFaceLeft = cube[leftEdge];
                 const Face bottomFaceRight = cube[rightEdge];
 
-                if (column == 0) {
+                if (column == 0)
+                {
                     int N = Helpers::getTurns(Face(bottomLeftEdge / 9), Helpers::wrapIncrement(bottomFace));
 
                     cube.rotateSide(DOWN, N);
                     cube.rotateSide(bottomFaceRight);
                     cube.rotateSide(DOWN, -1);
                     cube.rotateSide(bottomFaceRight, -1);
-                } else {
+                }
+                else
+                {
                     int N = Helpers::getTurns(Face(bottomRightEdge / 9), Helpers::wrapDecrement(bottomFace));
 
                     cube.rotateSide(DOWN, N);
