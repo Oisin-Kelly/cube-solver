@@ -2,27 +2,27 @@
 #include <array>
 #include "Face.hpp"
 
-class Cube {
-    private:
-        std::array<Face, 54>  cube;
+class Cube
+{
+private:
+    std::array<Face, 54> cube;
 
-        void rotateFace(const Face side, const bool clockwise);
-        void rotateU(const bool clockwise);
-        void rotateF(const bool clockwise);
-        void rotateR(const bool clockwise);
-        void rotateB(const bool clockwise);
-        void rotateL(const bool clockwise);
-        void rotateD(const bool clockwise);
+    void rotateFace(const Face side, const bool clockwise);
+    void rotateU(const bool clockwise);
+    void rotateF(const bool clockwise);
+    void rotateR(const bool clockwise);
+    void rotateB(const bool clockwise);
+    void rotateL(const bool clockwise);
+    void rotateD(const bool clockwise);
 
+public:
+    Cube();
 
-    public:
-        Cube();
+    void print() const;
 
-        void print() const;
+    void rotateSide(const Face side, int turns = 1);
+    void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }
+    const std::array<Face, 54> getCube() const;
 
-        void rotateSide(const Face side, int turns = 1);
-        void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }
-        const std::array<Face, 54> getCube() const;
-
-        const Face operator [](const uint8_t index) const;
+    const Face operator[](const uint8_t index) const;
 };

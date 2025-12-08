@@ -64,6 +64,26 @@ namespace Constants
         {41, 12}, // left right, front left
         {12, 41}};
 
+    const std::map<int, int> MIDDLE_EDGE_MAP = {
+        {14, 21}, // front right, right left
+        {21, 14},
+
+        {23, 30}, // right right, back left
+        {30, 23},
+
+        {32, 39}, // back right, left left
+        {39, 32},
+
+        {41, 12}, // left right, front left
+        {12, 41}};
+
+    const std::map<int, int> BOTTOM_EDGE_MAP = {
+        {16, 46}, // front low, bottom high
+        {25, 50}, // right low, bottom right
+        {34, 52}, // back low, bottom low
+        {43, 48}, // left low, bottom left
+    };
+
     const std::vector<std::tuple<int, int, int>> CORNERS = {
         {8, 11, 18},
         {2, 20, 27},
