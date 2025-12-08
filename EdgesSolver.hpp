@@ -9,7 +9,6 @@ class EdgesSolver : Solver
 private:
     Cube &cube;
     std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedEdges() const;
-    bool hasAlignedEdge(std::pair<int, int> pair);
 
 public:
     explicit EdgesSolver(Cube &cube);

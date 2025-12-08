@@ -1,11 +1,14 @@
 #pragma once
 #include <array>
 #include "Face.hpp"
+#include <string>
+#include <vector>
 
 class Cube
 {
 private:
     std::array<Face, 54> cube;
+    std::vector<std::string> moves;
 
     void rotateFace(const Face side, const bool clockwise);
     void rotateU(const bool clockwise);
@@ -19,6 +22,7 @@ public:
     Cube();
 
     void print() const;
+    std::vector<std::string> getMoves() const;
 
     void rotateSide(const Face side, int turns = 1);
     void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }

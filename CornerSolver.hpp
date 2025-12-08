@@ -4,14 +4,15 @@
 #include <unordered_set>
 #include "PairHash.hpp"
 
-class CornerSolver : Solver {
-    private:
-        Cube& cube;
+class CornerSolver : Solver
+{
+private:
+    Cube &cube;
 
-        std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedCorners();
-    public:
-        explicit CornerSolver(Cube& cube);
+    std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedCorners();
 
-        void solve() override;
-        
+public:
+    explicit CornerSolver(Cube &cube);
+
+    void solve() override;
 };

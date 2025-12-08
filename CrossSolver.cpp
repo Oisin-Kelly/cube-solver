@@ -38,9 +38,9 @@ std::unordered_set<Face> CrossSolver::getAlignedFaces()
         alignedFaces.insert(FRONT);
     if (cube[5] == UP && cube[19] == RIGHT)
         alignedFaces.insert(RIGHT);
-    if (cube[5] == UP && cube[19] == BACK)
+    if (cube[1] == UP && cube[28] == BACK)
         alignedFaces.insert(BACK);
-    if (cube[5] == UP && cube[19] == LEFT)
+    if (cube[3] == UP && cube[37] == LEFT)
         alignedFaces.insert(LEFT);
 
     return alignedFaces;
@@ -88,8 +88,6 @@ void CrossSolver::solve()
                 switch (N)
                 {
                 case 0:
-                    // (2)
-
                     cube.rotateSide(Face::UP);
                     cube.rotateSide(Helpers::wrapDecrement(c_edge));
                     cube.rotateSide(Face::UP, -1);

@@ -5,14 +5,6 @@
 
 EdgesSolver::EdgesSolver(Cube &cube) : cube(cube) {};
 
-bool EdgesSolver::hasAlignedEdge(std::pair<int, int> edge)
-{
-    const Face first_f = Face(edge.first / 9);
-    const Face second_f = Face(edge.second / 9);
-
-    return cube[edge.first] == first_f && cube[edge.second] == second_f;
-}
-
 std::unordered_set<std::pair<Face, Face>, PairHash> EdgesSolver::getAlignedEdges() const
 {
     std::unordered_set<std::pair<Face, Face>, PairHash> alignedFaces;
@@ -72,21 +64,25 @@ void EdgesSolver::solve()
             const Face edge_1 = cube[edge.first];
             const Face edge_2 = cube[edge.second];
 
-            // if the pair on the middle row just needs flipped 180 degrees
-            if (edge_1 == face_2 && edge_2 == face_1)
-            {
-                cube.rotateSide(face_2, 2);
-                cube.rotateSide(DOWN, 2);
-                cube.rotateSide(face_1, -1);
-                cube.rotateSide(face_2, 2);
-                cube.rotateSide(face_1, 1);
-                cube.rotateSide(DOWN, 2);
-                cube.rotateSide(face_2, 1);
-                cube.rotateSide(DOWN, -1);
-                cube.rotateSide(face_2, 1);
+            if (edge_1 == face_1 && edge_2 == face_2)
+                continue;
 
-                alignedEdges.insert({edge_1, edge_2});
-            }
+            if (edge_1 == DOWN || edge_2 == DOWN)
+                continue;
+
+            // edge is in wrong middle slot - eject it to bottom layer first
+            const int N = Helpers::getTurns(face_1, face_2);
+
+            cube.rotateSide(DOWN, -N);
+            cube.rotateSide(face_2, -N);
+            cube.rotateSide(DOWN, N);
+            cube.rotateSide(face_2, N);
+            cube.rotateSide(DOWN, N);
+            cube.rotateSide(face_1, N);
+            cube.rotateSide(DOWN, -N);
+            cube.rotateSide(face_1, -N);
+
+            break;
         }
     }
 }
