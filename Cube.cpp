@@ -8,6 +8,21 @@ Cube::Cube()
     cube = Constants::INITIAL_CUBE;
 
     rotateU(true);
+    rotateF(true);
+    rotateR(true);
+    rotateB(true);
+    rotateD(true);
+    rotateR(true);
+    rotateD(true);
+    rotateD(true);
+    rotateB(true);
+    rotateL(true);
+    rotateD(true);
+    rotateD(true);
+    rotateL(true);
+    rotateL(true);
+    rotateL(true);
+    rotateL(true);
 }
 
 void Cube::rotateFace(const Face face = Face::UP, const bool clockwise = true)

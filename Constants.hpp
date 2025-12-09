@@ -84,13 +84,13 @@ namespace Constants
         {43, 48}, // left low, bottom left
     };
 
-    const std::vector<std::tuple<int, int, int>> CORNERS = {
-        {8, 11, 18},
-        {2, 20, 27},
-        {0, 29, 36},
-        {6, 38, 9},
-        {47, 24, 17},
-        {53, 33, 26},
-        {51, 42, 35},
-        {45, 15, 44}};
+    const std::array<std::tuple<int, int, int>, 8> CORNERS = {
+        {{8, 11, 18},
+         {2, 20, 27},
+         {0, 29, 36},
+         {6, 38, 9},
+         {47, 24, 17},
+         {53, 33, 26},
+         {51, 42, 35},
+         {45, 15, 44}}};
 }

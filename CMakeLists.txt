@@ -11,6 +11,8 @@ set(SOURCES
     CrossSolver.cpp
     CornerSolver.cpp
     EdgesSolver.cpp
+    BottomCrossSolver.cpp
+    BottomSolver.cpp
     Helpers.cpp
 )
 
@@ -19,6 +21,8 @@ set(HEADERS
     CrossSolver.hpp
     CornerSolver.hpp
     EdgesSolver.hpp
+    BottomCrossSolver.hpp
+    BottomSolver.hpp
     Cube.hpp
     Face.hpp
     Helpers.hpp

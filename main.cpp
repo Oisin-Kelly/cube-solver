@@ -3,33 +3,40 @@
 #include <iostream>
 #include "CrossSolver.hpp"
 #include "EdgesSolver.hpp"
+#include "BottomSolver.hpp"
 
 int main()
 {
-    Cube mycube;
+    Cube cube;
 
-    CrossSolver myCrossSolve(mycube);
-    CornerSolver mySolver(mycube);
-    EdgesSolver myEdgeSolver(mycube);
+    CrossSolver crossSolver(cube);
+    CornerSolver cornerSolver(cube);
+    EdgesSolver edgeSolver(cube);
+    BottomSolver bottomSolver(cube);
 
-    myCrossSolve.solve();
+    crossSolver.solve();
     std::cout << "Cross Solved!" << std::endl;
 
-    mySolver.solve();
+    cornerSolver.solve();
     std::cout << "Corners solved!" << std::endl;
 
-    myEdgeSolver.solve();
+    edgeSolver.solve();
     std::cout << "Edges solved!" << std::endl;
 
+    bottomSolver.solve();
+    std::cout << "Bottom solved!" << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Cube solved!" << std::endl;
     std::cout << std::endl;
 
     std::cout << "Moves (unoptimised):" << std::endl;
 
-    for (const std::string move : mycube.getMoves())
+    for (const std::string move : cube.getMoves())
         std::cout << move << " ";
 
     std::cout << std::endl;
-    std::cout << "Total moves: " << mycube.getMoves().size() << std::endl;
+    std::cout << "Total moves: " << cube.getMoves().size() << std::endl;
 
     return 0;
 }
