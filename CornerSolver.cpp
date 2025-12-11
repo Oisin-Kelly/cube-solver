@@ -6,7 +6,7 @@
 
 CornerSolver::CornerSolver(Cube &cube) : cube(cube) {};
 
-std::unordered_set<std::pair<Face, Face>, PairHash> CornerSolver::getAlignedCorners()
+std::unordered_set<std::pair<Face, Face>, PairHash> CornerSolver::getAlignedCorners() const
 {
     std::unordered_set<std::pair<Face, Face>, PairHash> alignedCorners;
 
@@ -16,7 +16,7 @@ std::unordered_set<std::pair<Face, Face>, PairHash> CornerSolver::getAlignedCorn
         alignedCorners.insert({RIGHT, BACK});
     if (cube[29] == BACK && cube[36] == LEFT)
         alignedCorners.insert({BACK, LEFT});
-    if (cube[36] == LEFT && cube[9] == FRONT)
+    if (cube[38] == LEFT && cube[9] == FRONT)
         alignedCorners.insert({LEFT, FRONT});
 
     return alignedCorners;

@@ -51,8 +51,12 @@ void EdgesSolver::solve()
             cube.rotateSide(color_1, N);
             cube.rotateSide(DOWN, -N);
             cube.rotateSide(color_1, -N);
+        }
 
-            alignedEdges.insert({color_1, color_2});
+        if (getAlignedEdges().size() == 4)
+        {
+
+            return;
         }
 
         // insert pairs on the middle row
@@ -84,5 +88,7 @@ void EdgesSolver::solve()
 
             break;
         }
+
+        alignedEdges = getAlignedEdges();
     }
 }

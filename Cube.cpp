@@ -11,14 +11,78 @@ Cube::Cube()
     rotateF(true);
     rotateR(true);
     rotateB(true);
-    rotateD(true);
     rotateR(true);
+    rotateR(true);
+    rotateB(true);
+    rotateR(true);
+    rotateL(true);
     rotateD(true);
     rotateD(true);
     rotateB(true);
     rotateL(true);
+    rotateL(true);
+    rotateF(true);
+    rotateB(true);
+    rotateF(true);
+    rotateR(true);
+    rotateB(true);
+    rotateR(true);
+    rotateL(true);
     rotateD(true);
     rotateD(true);
+    rotateB(true);
+    rotateL(true);
+    rotateL(true);
+    rotateF(true);
+    rotateB(true);
+    rotateF(true);
+    rotateB(true);
+    rotateR(true);
+    rotateR(true);
+    rotateB(true);
+    rotateR(true);
+    rotateL(true);
+    rotateD(true);
+    rotateD(true);
+    rotateB(true);
+    rotateL(true);
+    rotateL(true);
+    rotateF(true);
+    rotateB(true);
+    rotateF(true);
+    rotateB(true);
+    rotateR(true);
+    rotateB(true);
+    rotateB(true);
+    rotateL(true);
+    rotateL(true);
+    rotateF(true);
+    rotateB(true);
+    rotateF(true);
+    rotateB(true);
+    rotateR(true);
+    rotateR(true);
+    rotateR(true);
+    rotateL(true);
+    rotateL(true);
+    rotateF(true);
+    rotateB(true);
+    rotateR(true);
+    rotateR(true);
+    rotateD(true);
+    rotateB(true);
+    rotateF(true);
+    rotateD(true);
+    rotateB(true);
+    rotateL(true);
+    rotateL(true);
+    rotateF(true);
+    rotateB(true);
+    rotateF(true);
+    rotateB(true);
+    rotateD(true);
+    rotateD(true);
+    rotateB(true);
     rotateL(true);
     rotateL(true);
     rotateL(true);
@@ -247,7 +311,7 @@ void Cube::print() const
     cout << endl;
 }
 
-std::vector<std::string> Cube::getMoves() const
+std::vector<std::tuple<Face, int>> Cube::getMoves() const
 {
     return moves;
 }
@@ -258,15 +322,12 @@ void Cube::rotateSide(const Face side, int turns)
         return;
 
     const bool clockwise = turns > 0;
-    const char *faceNames[] = {"U", "F", "R", "B", "L", "D"};
 
-    std::string move = faceNames[side];
-    int absTurns = abs(turns);
-    if (absTurns == 2)
-        move += "2";
-    else if (!clockwise)
-        move += "'";
+    const std::tuple<Face, int> move = {side, turns};
+
     moves.push_back(move);
+
+    int absTurns = abs(turns);
 
     turns = absTurns;
 
@@ -294,7 +355,7 @@ void Cube::rotateSide(const Face side, int turns)
             break;
         }
 
-        print();
+        // print();
     }
 }
 

@@ -93,4 +93,10 @@ namespace Constants
          {53, 33, 26},
          {51, 42, 35},
          {45, 15, 44}}};
+
+    const std::array<std::tuple<int, int, int>, 4> BOTTOM_CORNERS = {
+        {{47, 24, 17},
+         {53, 33, 26},
+         {51, 42, 35},
+         {45, 15, 44}}};
 }

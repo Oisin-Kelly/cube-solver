@@ -9,7 +9,7 @@ class CornerSolver : Solver
 private:
     Cube &cube;
 
-    std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedCorners();
+    std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedCorners() const;
 
 public:
     explicit CornerSolver(Cube &cube);

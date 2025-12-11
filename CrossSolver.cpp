@@ -50,11 +50,11 @@ void CrossSolver::solve()
 {
     std::unordered_set<Face> alignedFaces = getAlignedFaces();
 
-    while (alignedFaces.size() != 4)
+     while (alignedFaces.size() != 4)
     {
         for (auto const edge : Constants::EDGE_MAP)
         {
-            if (cube[edge.first] != 0)
+            if (cube[edge.first] != UP)
                 continue;
 
             const Face c_edge = cube[edge.second];     // edge number for colored side of edge; 1 .. 4
@@ -72,7 +72,8 @@ void CrossSolver::solve()
                 continue;
             }
 
-            if (1 <= c_edge && c_edge <= 4 && 9 * c_edge + 3 <= edge.second && (9 * (c_edge + 1)) - 1 >= edge.second)
+            // if coloured side of edge on horizontal plane
+            if (FRONT <= c_edge && c_edge <= LEFT && 9 * c_edge + 3 <= edge.second && (9 * (c_edge + 1)) - 1 >= edge.second)
             {
                 do
                     cube.rotateSide(c_edge);

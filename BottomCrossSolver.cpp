@@ -118,6 +118,7 @@ BottomCrossSolver::BottomCrossSolver(Cube &cube) : cube(cube)
 
 void BottomCrossSolver::solve()
 {
+
     if (!hasR())
     {
         FLDLDF();
