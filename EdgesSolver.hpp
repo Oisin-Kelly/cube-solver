@@ -7,11 +7,11 @@
 class EdgesSolver : Solver
 {
 private:
-    Cube &cube;
+    Cube *cube;
     std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedEdges() const;
 
 public:
-    explicit EdgesSolver(Cube &cube);
+    explicit EdgesSolver(Cube *cube);
 
     void solve() override;
 };

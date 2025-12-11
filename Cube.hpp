@@ -1,6 +1,7 @@
 #pragma once
-#include <array>
 #include "Face.hpp"
+#include "Constants.hpp"
+#include <array>
 #include <string>
 #include <vector>
 
@@ -18,15 +19,18 @@ private:
     void rotateL(const bool clockwise);
     void rotateD(const bool clockwise);
 
+    const char faceToChar(const Face f) const;
+
 public:
-    Cube();
+    Cube() { this->cube = Constants::INITIAL_CUBE; };
+    Cube(const std::array<Face, 54> cube) { this->cube = cube; }
 
     void print() const;
-    std::vector<std::tuple<Face, int>> getMoves() const;
+
+    const std::vector<std::tuple<Face, int>> getMoves() const { return this->moves; };
 
     void rotateSide(const Face side, int turns = 1);
     void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }
-    const std::array<Face, 54> getCube() const;
 
-    const Face operator[](const uint8_t index) const;
+    const std::array<Face, 54> getCube() const { return this->cube; };
 };

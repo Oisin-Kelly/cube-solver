@@ -1,39 +1,38 @@
 #include "BottomSolver.hpp"
 #include "Constants.hpp"
 #include "Helpers.hpp"
-#include <iostream>
 #include <unordered_set>
 
 void BottomSolver::L_DRD_LDR_D_(const Face left, const Face right)
 {
-    cube.rotateSide(left, -1);
-    cube.rotateSide(Face::DOWN);
-    cube.rotateSide(right);
-    cube.rotateSide(Face::DOWN, -1);
+    cube->rotateSide(left, -1);
+    cube->rotateSide(Face::DOWN);
+    cube->rotateSide(right);
+    cube->rotateSide(Face::DOWN, -1);
 
-    cube.rotateSide(left);
-    cube.rotateSide(Face::DOWN);
-    cube.rotateSide(right, -1);
-    cube.rotateSide(Face::DOWN, -1);
+    cube->rotateSide(left);
+    cube->rotateSide(Face::DOWN);
+    cube->rotateSide(right, -1);
+    cube->rotateSide(Face::DOWN, -1);
 }
 
 void BottomSolver::RD2R_D_RD_R_L_D2LDL_DL(const Face left, const Face right)
 {
-    cube.rotateSide(right);
-    cube.rotateSide(Face::DOWN, 2);
-    cube.rotateSide(right, -1);
-    cube.rotateSide(Face::DOWN, -1);
-    cube.rotateSide(right);
-    cube.rotateSide(Face::DOWN, -1);
-    cube.rotateSide(right, -1);
+    cube->rotateSide(right);
+    cube->rotateSide(Face::DOWN, 2);
+    cube->rotateSide(right, -1);
+    cube->rotateSide(Face::DOWN, -1);
+    cube->rotateSide(right);
+    cube->rotateSide(Face::DOWN, -1);
+    cube->rotateSide(right, -1);
 
-    cube.rotateSide(left, -1);
-    cube.rotateSide(Face::DOWN, 2);
-    cube.rotateSide(left);
-    cube.rotateSide(Face::DOWN);
-    cube.rotateSide(left, -1);
-    cube.rotateSide(Face::DOWN);
-    cube.rotateSide(left);
+    cube->rotateSide(left, -1);
+    cube->rotateSide(Face::DOWN, 2);
+    cube->rotateSide(left);
+    cube->rotateSide(Face::DOWN);
+    cube->rotateSide(left, -1);
+    cube->rotateSide(Face::DOWN);
+    cube->rotateSide(left);
 }
 
 bool BottomSolver::hasCorrectCorner(std::tuple<int, int, int> corner) const
@@ -42,9 +41,9 @@ bool BottomSolver::hasCorrectCorner(std::tuple<int, int, int> corner) const
     const int idx_2 = std::get<1>(corner);
     const int idx_3 = std::get<2>(corner);
 
-    const Face corner_1 = cube[idx_1];
-    const Face corner_2 = cube[idx_2];
-    const Face corner_3 = cube[idx_3];
+    const Face corner_1 = cube->getCube()[idx_1];
+    const Face corner_2 = cube->getCube()[idx_2];
+    const Face corner_3 = cube->getCube()[idx_3];
 
     const Face face_1 = Face(idx_1 / 9);
     const Face face_2 = Face(idx_2 / 9);
@@ -62,9 +61,9 @@ bool BottomSolver::hasCorrectOrientation(std::tuple<int, int, int> corner) const
     const int idx_2 = std::get<1>(corner);
     const int idx_3 = std::get<2>(corner);
 
-    const Face corner_1 = cube[idx_1];
-    const Face corner_2 = cube[idx_2];
-    const Face corner_3 = cube[idx_3];
+    const Face corner_1 = cube->getCube()[idx_1];
+    const Face corner_2 = cube->getCube()[idx_2];
+    const Face corner_3 = cube->getCube()[idx_3];
 
     const Face face_1 = Face(idx_1 / 9);
     const Face face_2 = Face(idx_2 / 9);
@@ -108,7 +107,7 @@ int BottomSolver::getBottomLeftIndexOfCorrectCorner() const
     return 0;
 }
 
-BottomSolver::BottomSolver(Cube &cube) : cube(cube), crossSolver(cube) {};
+BottomSolver::BottomSolver(Cube *cube) : cube(cube), crossSolver(cube) {};
 
 void BottomSolver::solve()
 {
@@ -162,7 +161,7 @@ void BottomSolver::solve()
             // get side where both bottom corners are incorrectly oriented
             for (int i = 1; i < 5; ++i)
             {
-                if (cube[i * 9 + 6] != Face(i) && cube[i * 9 + 8] != Face(i))
+                if (cube->getCube()[i * 9 + 6] != Face(i) && cube->getCube()[i * 9 + 8] != Face(i))
                 {
                     while (getNumberCorrectOrientationCorners() != 4)
                     {
@@ -187,7 +186,7 @@ void BottomSolver::solve()
         {
             for (int i = 1; i <= 4; ++i)
             {
-                if (cube[i * 9 + 6] != Face(i) && cube[i * 9 + 8] != Face(i))
+                if (cube->getCube()[i * 9 + 6] != Face(i) && cube->getCube()[i * 9 + 8] != Face(i))
                 {
                     const auto right = Face(i);
                     const auto left = Helpers::wrapDecrement(Helpers::wrapDecrement(right));

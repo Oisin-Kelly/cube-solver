@@ -7,12 +7,12 @@
 class CornerSolver : Solver
 {
 private:
-    Cube &cube;
+    Cube *cube;
 
     std::unordered_set<std::pair<Face, Face>, PairHash> getAlignedCorners() const;
 
 public:
-    explicit CornerSolver(Cube &cube);
+    explicit CornerSolver(Cube *cube);
 
     void solve() override;
 };

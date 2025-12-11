@@ -5,11 +5,11 @@
 class BottomCrossSolver : Solver
 {
 private:
-    Cube &cube;
+    Cube *cube;
 
-    void FLDLDF();
-    void RD2R_D_RD_R_(const Face edge_right);
-    void alignEdges();
+    void FLDLDF() const;
+    void RD2R_D_RD_R_(const Face edge_right) const;
+    void alignEdges() const;
 
     bool hasHorizontalLine() const;
     bool hasVerticalLine() const;
@@ -20,7 +20,7 @@ private:
     bool hasAlignedCross() const;
 
 public:
-    explicit BottomCrossSolver(Cube &cube);
+    explicit BottomCrossSolver(Cube *cube);
 
     void solve() override;
 };

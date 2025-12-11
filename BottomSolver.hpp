@@ -6,7 +6,7 @@
 class BottomSolver : Solver
 {
 private:
-    Cube &cube;
+    Cube *cube;
 
     void L_DRD_LDR_D_() { L_DRD_LDR_D_(Face::LEFT, Face::RIGHT); }
     void L_DRD_LDR_D_(const Face left, const Face right);
@@ -22,7 +22,7 @@ private:
     BottomCrossSolver crossSolver;
 
 public:
-    explicit BottomSolver(Cube &cube);
+    explicit BottomSolver(Cube *cube);
 
     void solve() override;
 };

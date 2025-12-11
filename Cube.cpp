@@ -3,92 +3,6 @@
 #include <iostream>
 #include <string>
 
-Cube::Cube()
-{
-    cube = Constants::INITIAL_CUBE;
-
-    rotateU(true);
-    rotateF(true);
-    rotateR(true);
-    rotateB(true);
-    rotateR(true);
-    rotateR(true);
-    rotateB(true);
-    rotateR(true);
-    rotateL(true);
-    rotateD(true);
-    rotateD(true);
-    rotateB(true);
-    rotateL(true);
-    rotateL(true);
-    rotateF(true);
-    rotateB(true);
-    rotateF(true);
-    rotateR(true);
-    rotateB(true);
-    rotateR(true);
-    rotateL(true);
-    rotateD(true);
-    rotateD(true);
-    rotateB(true);
-    rotateL(true);
-    rotateL(true);
-    rotateF(true);
-    rotateB(true);
-    rotateF(true);
-    rotateB(true);
-    rotateR(true);
-    rotateR(true);
-    rotateB(true);
-    rotateR(true);
-    rotateL(true);
-    rotateD(true);
-    rotateD(true);
-    rotateB(true);
-    rotateL(true);
-    rotateL(true);
-    rotateF(true);
-    rotateB(true);
-    rotateF(true);
-    rotateB(true);
-    rotateR(true);
-    rotateB(true);
-    rotateB(true);
-    rotateL(true);
-    rotateL(true);
-    rotateF(true);
-    rotateB(true);
-    rotateF(true);
-    rotateB(true);
-    rotateR(true);
-    rotateR(true);
-    rotateR(true);
-    rotateL(true);
-    rotateL(true);
-    rotateF(true);
-    rotateB(true);
-    rotateR(true);
-    rotateR(true);
-    rotateD(true);
-    rotateB(true);
-    rotateF(true);
-    rotateD(true);
-    rotateB(true);
-    rotateL(true);
-    rotateL(true);
-    rotateF(true);
-    rotateB(true);
-    rotateF(true);
-    rotateB(true);
-    rotateD(true);
-    rotateD(true);
-    rotateB(true);
-    rotateL(true);
-    rotateL(true);
-    rotateL(true);
-    rotateL(true);
-}
-
 void Cube::rotateFace(const Face face = Face::UP, const bool clockwise = true)
 {
     using namespace std;
@@ -269,6 +183,25 @@ void Cube::rotateD(const bool clockwise = true)
     }
 }
 
+const char Cube::faceToChar(const Face f) const
+{
+    switch (f)
+    {
+    case 0:
+        return 'G';
+    case 1:
+        return 'R';
+    case 2:
+        return 'W';
+    case 3:
+        return 'O';
+    case 4:
+        return 'Y';
+    case 5:
+        return 'B';
+    }
+}
+
 void Cube::print() const
 {
     using namespace std;
@@ -278,22 +211,22 @@ void Cube::print() const
         return (i + 1) % 3 == 0;
     };
 
-    cout << "TOP:" << endl;
+    cout << "TOP\n";
     for (int i = 0; i < 9; i++)
     {
-        cout << static_cast<int>(cube[i]) << " ";
+        cout << faceToChar(cube[i]) << " ";
         if (takeNewLine(i))
             cout << endl;
     }
 
-    cout << "\nFRONT   RIGHT   BACK    LEFT" << endl;
+    cout << "\nFRONT   RIGHT   BACK    LEFT\n";
     for (int row = 0; row < 3; ++row)
     {
         for (int face = 1; face <= 4; ++face)
         {
             for (int col = 0; col < 3; ++col)
             {
-                cout << static_cast<int>(cube[face * 9 + row * 3 + col]) << " ";
+                cout << faceToChar(cube[face * 9 + row * 3 + col]) << " ";
             }
             cout << "  ";
         }
@@ -301,19 +234,14 @@ void Cube::print() const
     }
     cout << endl;
 
-    cout << "BOTTOM:" << endl;
+    cout << "BOTTOM:\n";
     for (int i = 45; i < 54; i++)
     {
-        std::cout << static_cast<int>(cube[i]) << " ";
+        std::cout << faceToChar(cube[i]) << " ";
         if (takeNewLine(i - 45))
             cout << endl;
     }
     cout << endl;
-}
-
-std::vector<std::tuple<Face, int>> Cube::getMoves() const
-{
-    return moves;
 }
 
 void Cube::rotateSide(const Face side, int turns)
@@ -354,17 +282,5 @@ void Cube::rotateSide(const Face side, int turns)
             rotateD(clockwise);
             break;
         }
-
-        // print();
     }
-}
-
-const std::array<Face, 54> Cube::getCube() const
-{
-    return cube;
-}
-
-const Face Cube::operator[](const uint8_t index) const
-{
-    return cube[index];
 }

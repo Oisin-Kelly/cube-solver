@@ -1,30 +1,29 @@
 #include "BottomCrossSolver.hpp"
 #include "Helpers.hpp"
 #include "Constants.hpp"
-#include <iostream>
 
-void BottomCrossSolver::FLDLDF()
+void BottomCrossSolver::FLDLDF() const
 {
-    cube.rotateSide(Face::FRONT);
-    cube.rotateSide(Face::LEFT);
-    cube.rotateSide(Face::DOWN);
-    cube.rotateSide(Face::LEFT, -1);
-    cube.rotateSide(Face::DOWN, -1);
-    cube.rotateSide(Face::FRONT, -1);
+    cube->rotateSide(Face::FRONT);
+    cube->rotateSide(Face::LEFT);
+    cube->rotateSide(Face::DOWN);
+    cube->rotateSide(Face::LEFT, -1);
+    cube->rotateSide(Face::DOWN, -1);
+    cube->rotateSide(Face::FRONT, -1);
 }
 
-void BottomCrossSolver::RD2R_D_RD_R_(const Face edge_right)
+void BottomCrossSolver::RD2R_D_RD_R_(const Face edge_right) const
 {
-    cube.rotateSide(edge_right);
-    cube.rotateSide(DOWN, 2);
-    cube.rotateSide(edge_right, -1);
-    cube.rotateSide(DOWN, -1);
-    cube.rotateSide(edge_right);
-    cube.rotateSide(DOWN, -1);
-    cube.rotateSide(edge_right, -1);
+    cube->rotateSide(edge_right);
+    cube->rotateSide(DOWN, 2);
+    cube->rotateSide(edge_right, -1);
+    cube->rotateSide(DOWN, -1);
+    cube->rotateSide(edge_right);
+    cube->rotateSide(DOWN, -1);
+    cube->rotateSide(edge_right, -1);
 }
 
-void BottomCrossSolver::alignEdges()
+void BottomCrossSolver::alignEdges() const
 {
     const std::map<int, int> BOTTOM_EDGE_PAIRS = {
         {25, 16},
@@ -34,14 +33,14 @@ void BottomCrossSolver::alignEdges()
 
     for (const auto pair : BOTTOM_EDGE_PAIRS)
     {
-        if (cube[pair.second] == Helpers::wrapDecrement(Face(cube[pair.first])))
+        if (cube->getCube()[pair.second] == Helpers::wrapDecrement(Face(cube->getCube()[pair.first])))
         {
 
             const Face face_left = Face(pair.first / 9);
-            const Face edge_1 = cube[pair.first];
-            const Face edge_2 = cube[pair.second];
+            const Face edge_1 = cube->getCube()[pair.first];
+            const Face edge_2 = cube->getCube()[pair.second];
             const auto N = edge_1 - face_left;
-            cube.rotateSide(DOWN, N);
+            cube->rotateSide(DOWN, N);
 
             if (hasAlignedCross())
                 return;
@@ -49,7 +48,7 @@ void BottomCrossSolver::alignEdges()
             const Face edge_right = Helpers::wrapDecrement(edge_2);
 
             RD2R_D_RD_R_(edge_2);
-            cube.rotateSide(DOWN, -1);
+            cube->rotateSide(DOWN, -1);
 
             break;
         }
@@ -58,18 +57,18 @@ void BottomCrossSolver::alignEdges()
     if (!hasAlignedCross())
     {
 
-        if (cube[16] != FRONT && cube[25] != RIGHT)
-            cube.rotateSide(DOWN);
+        if (cube->getCube()[16] != FRONT && cube->getCube()[25] != RIGHT)
+            cube->rotateSide(DOWN);
 
         for (auto const edge : Constants::BOTTOM_EDGE_MAP)
         {
             const Face edge_right = Helpers::wrapIncrement(Face(edge.first / 9));
 
-            if (cube[edge.first] == Face(edge.first / 9))
+            if (cube->getCube()[edge.first] == Face(edge.first / 9))
             {
                 RD2R_D_RD_R_(edge_right);
                 RD2R_D_RD_R_(Helpers::wrapDecrement(edge_right));
-                cube.rotateSide(DOWN, -1);
+                cube->rotateSide(DOWN, -1);
 
                 break;
             }
@@ -79,12 +78,12 @@ void BottomCrossSolver::alignEdges()
 
 bool BottomCrossSolver::hasHorizontalLine() const
 {
-    return cube[48] == DOWN && cube[49] == DOWN && cube[50] == DOWN;
+    return cube->getCube()[48] == DOWN && cube->getCube()[49] == DOWN && cube->getCube()[50] == DOWN;
 }
 
 bool BottomCrossSolver::hasVerticalLine() const
 {
-    return cube[46] == DOWN && cube[49] == DOWN && cube[52] == DOWN;
+    return cube->getCube()[46] == DOWN && cube->getCube()[49] == DOWN && cube->getCube()[52] == DOWN;
 }
 
 bool BottomCrossSolver::hasR() const
@@ -95,13 +94,13 @@ bool BottomCrossSolver::hasR() const
     if (hasCross() || hasLine())
         return true;
 
-    if (cube[46] == DOWN && cube[50] == DOWN)
+    if (cube->getCube()[46] == DOWN && cube->getCube()[50] == DOWN)
         return true;
-    if (cube[52] == DOWN && cube[50] == DOWN)
+    if (cube->getCube()[52] == DOWN && cube->getCube()[50] == DOWN)
         return true;
-    if (cube[48] == DOWN && cube[52] == DOWN)
+    if (cube->getCube()[48] == DOWN && cube->getCube()[52] == DOWN)
         return true;
-    if (cube[46] == DOWN && cube[48] == DOWN)
+    if (cube->getCube()[46] == DOWN && cube->getCube()[48] == DOWN)
         return true;
 
     return false;
@@ -109,16 +108,15 @@ bool BottomCrossSolver::hasR() const
 
 bool BottomCrossSolver::hasAlignedCross() const
 {
-    return cube[16] == FRONT && cube[25] == RIGHT && cube[34] == BACK && cube[43] == LEFT;
+    return cube->getCube()[16] == FRONT && cube->getCube()[25] == RIGHT && cube->getCube()[34] == BACK && cube->getCube()[43] == LEFT;
 }
 
-BottomCrossSolver::BottomCrossSolver(Cube &cube) : cube(cube)
+BottomCrossSolver::BottomCrossSolver(Cube *cube) : cube(cube)
 {
 }
 
 void BottomCrossSolver::solve()
 {
-
     if (!hasR())
     {
         FLDLDF();
@@ -126,15 +124,15 @@ void BottomCrossSolver::solve()
 
     if (!hasLine())
     {
-        if (cube[46] == DOWN && cube[50] == DOWN)
-            cube.rotateSide(DOWN, -1);
-        else if (cube[48] == DOWN && cube[52] == DOWN)
-            cube.rotateSide(DOWN, 1);
+        if (cube->getCube()[46] == DOWN && cube->getCube()[50] == DOWN)
+            cube->rotateSide(DOWN, -1);
+        else if (cube->getCube()[48] == DOWN && cube->getCube()[52] == DOWN)
+            cube->rotateSide(DOWN, 1);
 
         FLDLDF();
 
-        if (cube[46] == DOWN)
-            cube.rotateSide(DOWN, 1);
+        if (cube->getCube()[46] == DOWN)
+            cube->rotateSide(DOWN, 1);
     }
 
     if (hasAlignedCross())
@@ -142,8 +140,8 @@ void BottomCrossSolver::solve()
 
     if (!hasCross())
     {
-        if (cube[46] == DOWN)
-            cube.rotateSide(DOWN, 1);
+        if (cube->getCube()[46] == DOWN)
+            cube->rotateSide(DOWN, 1);
 
         FLDLDF();
     }

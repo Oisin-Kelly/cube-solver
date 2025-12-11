@@ -6,14 +6,14 @@
 class CrossSolver : public Solver
 {
 private:
-    Cube &cube;
+    Cube *cube;
 
     void alignEdge(Face face, int N);
     std::unordered_set<Face> getAlignedFaces();
     bool hasAlignedEdge(Face side);
 
 public:
-    explicit CrossSolver(Cube &cube);
+    explicit CrossSolver(Cube *cube);
 
     void solve() override;
 };
