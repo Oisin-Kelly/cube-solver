@@ -16,7 +16,6 @@ void printUsage(const char *programName)
               << "Options:\n"
               << "  -f, --file <path>    Load cube state from file\n"
               << "  -v, --verbose        Print detailed solving steps\n"
-              << "  -p, --print          Print cube state before and after solving\n"
               << "  -h, --help           Show this help message\n";
 }
 
@@ -126,7 +125,6 @@ int main(int argc, char **argv)
 {
     std::string filename;
     bool verbose = false;
-    bool printCube = false;
 
     for (int i = 1; i < argc; ++i)
     {
@@ -145,10 +143,6 @@ int main(int argc, char **argv)
         else if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--verbose") == 0)
         {
             verbose = true;
-        }
-        else if (strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--print") == 0)
-        {
-            printCube = true;
         }
         else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
         {
@@ -198,12 +192,10 @@ int main(int argc, char **argv)
         }
     }
 
-    if (printCube)
-    {
-        std::cout << "Initial cube state:\n";
-        cube.print();
-        std::cout << "\n";
-    }
+    cube.setVerbose(verbose);
+
+    std::cout << "Initial cube state:\n";
+    cube.print();
 
     CrossSolver crossSolver(&cube);
     CornerSolver cornerSolver(&cube);
@@ -211,35 +203,31 @@ int main(int argc, char **argv)
     BottomSolver bottomSolver(&cube);
 
     if (verbose)
-        std::cout << "Solving cross...\n";
+        std::cout << "\nSolving cross...\n";
     crossSolver.solve();
     if (verbose)
-        std::cout << "Cross solved!\n";
+        std::cout << "\nCross solved!\n";
 
     if (verbose)
-        std::cout << "Solving corners...\n";
+        std::cout << "\nSolving corners...\n";
     cornerSolver.solve();
     if (verbose)
-        std::cout << "Corners solved!\n";
+        std::cout << "\nCorners solved!\n";
 
     if (verbose)
-        std::cout << "Solving edges...\n";
+        std::cout << "\nSolving edges...\n";
     edgeSolver.solve();
     if (verbose)
-        std::cout << "Edges solved!\n";
+        std::cout << "\nEdges solved!\n";
 
     if (verbose)
-        std::cout << "Solving bottom layer...\n";
+        std::cout << "\nSolving bottom layer...\n";
     bottomSolver.solve();
     if (verbose)
-        std::cout << "Bottom layer solved!\n";
+        std::cout << "\nBottom layer solved!\n";
 
-    if (printCube)
-    {
-        std::cout << "Final cube state:\n";
-        cube.print();
-        std::cout << "\n";
-    }
+    std::cout << "Final cube state:\n";
+    cube.print();
 
     if (cube.getCube() == Constants::INITIAL_CUBE)
     {

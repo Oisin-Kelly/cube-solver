@@ -257,9 +257,7 @@ void Cube::rotateSide(const Face side, int turns)
 
     int absTurns = abs(turns);
 
-    turns = absTurns;
-
-    for (int i = 0; i < turns; ++i)
+    for (int i = 0; i < absTurns; ++i)
     {
         switch (side)
         {
@@ -281,6 +279,11 @@ void Cube::rotateSide(const Face side, int turns)
         case DOWN:
             rotateD(clockwise);
             break;
+        }
+
+        if (verbose)
+        {
+            std::cout << "Rotating side " << faceToChar(side) << " " << turns << " turns\n";
         }
     }
 }
