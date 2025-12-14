@@ -10,6 +10,7 @@ class Cube
 private:
     std::array<Face, 54> cube;
     std::vector<std::tuple<Face, int>> moves;
+    bool verbose = false;
 
     void rotateFace(const Face side, const bool clockwise);
     void rotateU(const bool clockwise);
@@ -31,6 +32,7 @@ public:
 
     void rotateSide(const Face side, int turns = 1);
     void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }
+    void setVerbose(const bool verbose) { this->verbose = verbose; }
 
     const std::array<Face, 54> getCube() const { return this->cube; };
 };
