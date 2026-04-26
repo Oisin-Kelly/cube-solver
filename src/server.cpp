@@ -82,6 +82,13 @@ int main()
         "/solve",
         [](const httplib::Request &req, httplib::Response &res)
         {
+            if (req.method != "POST")
+            {
+                res.status = 405;
+                res.set_content(errorResponse("Only POST method is allowed", "METHOD_NOT_ALLOWED").dump(), "application/json");
+                return;
+            }
+
             json body;
             try
             {
