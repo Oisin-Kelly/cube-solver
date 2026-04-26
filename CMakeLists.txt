@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(httplib CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
-find_package(GTest CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
+find_package(GTest CONFIG QUIET)
 
 add_library(cube_solver_lib STATIC
     src/Cube.cpp
@@ -26,11 +26,13 @@ target_link_libraries(CubeSolver PRIVATE cube_solver_lib)
 add_executable(CubeSolverServer src/server.cpp)
 target_link_libraries(CubeSolverServer PRIVATE cube_solver_lib nlohmann_json::nlohmann_json httplib::httplib fmt::fmt)
 
-enable_testing()
-add_executable(CubeSolverTests
-    tests/test_optimise.cpp
-    tests/test_solve.cpp
-)
-target_link_libraries(CubeSolverTests PRIVATE cube_solver_lib GTest::gtest GTest::gtest_main)
-include(GoogleTest)
-gtest_discover_tests(CubeSolverTests)
+if(GTest_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/tests)
+    enable_testing()
+    add_executable(CubeSolverTests
+        tests/test_optimise.cpp
+        tests/test_solve.cpp
+    )
+    target_link_libraries(CubeSolverTests PRIVATE cube_solver_lib GTest::gtest GTest::gtest_main)
+    include(GoogleTest)
+    gtest_discover_tests(CubeSolverTests)
+endif()
