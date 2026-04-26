@@ -84,7 +84,7 @@ namespace Constants
         {43, 48}, // left low, bottom left
     };
 
-    const std::array<std::tuple<int, int, int>, 8> CORNERS = {
+    constexpr std::array<std::tuple<int, int, int>, 8> CORNERS = {
         {{8, 11, 18},
          {2, 20, 27},
          {0, 29, 36},
@@ -94,9 +94,11 @@ namespace Constants
          {51, 42, 35},
          {45, 15, 44}}};
 
-    const std::array<std::tuple<int, int, int>, 4> BOTTOM_CORNERS = {
+    constexpr std::array<std::tuple<int, int, int>, 4> BOTTOM_CORNERS = {
         {{47, 24, 17},
          {53, 33, 26},
          {51, 42, 35},
          {45, 15, 44}}};
+
+    constexpr std::array<u_int8_t, 6> CENTRE_INDICES = {4, 13, 22, 31, 40, 49};
 }

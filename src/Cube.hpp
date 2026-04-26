@@ -11,6 +11,8 @@ private:
     std::array<Face, 54> cube;
     std::vector<std::tuple<Face, int>> moves;
     bool verbose = false;
+    std::array<char, 6> colorMap = {'G', 'R', 'W', 'O', 'Y', 'B'};
+    size_t maxMoves = 0;
 
     void rotateFace(const Face side, const bool clockwise);
     void rotateU(const bool clockwise);
@@ -33,6 +35,8 @@ public:
     void rotateSide(const Face side, int turns = 1);
     void rotateSide(const uint8_t side, int turns = 1) { rotateSide(Face(side), turns); }
     void setVerbose(const bool verbose) { this->verbose = verbose; }
+    void setColorMap(const std::array<char, 6> &map) { colorMap = map; }
+    void setMaxMoves(size_t limit) { maxMoves = limit; }
 
     const std::array<Face, 54> getCube() const { return this->cube; };
 };

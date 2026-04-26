@@ -1,6 +1,7 @@
 #include "Cube.hpp"
 #include "Constants.hpp"
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 void Cube::rotateFace(const Face face = Face::UP, const bool clockwise = true)
@@ -185,21 +186,7 @@ void Cube::rotateD(const bool clockwise = true)
 
 const char Cube::faceToChar(const Face f) const
 {
-    switch (f)
-    {
-    case 0:
-        return 'G';
-    case 1:
-        return 'R';
-    case 2:
-        return 'W';
-    case 3:
-        return 'O';
-    case 4:
-        return 'Y';
-    case 5:
-        return 'B';
-    }
+    return colorMap[static_cast<int>(f)];
 }
 
 void Cube::print() const
@@ -254,6 +241,9 @@ void Cube::rotateSide(const Face side, int turns)
     const std::tuple<Face, int> move = {side, turns};
 
     moves.push_back(move);
+
+    if (maxMoves > 0 && moves.size() > maxMoves)
+        throw std::runtime_error("Max moves exceeded: cube may be in an illegal state");
 
     int absTurns = abs(turns);
 
