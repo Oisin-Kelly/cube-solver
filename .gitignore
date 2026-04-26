@@ -1,2 +1,4 @@
 build
 .vscode
+vcpkg_installed
+.DS_Store

@@ -1,0 +1,10 @@
+{
+  "name": "cube-solver",
+  "version": "1.0.0",
+  "dependencies": [
+    "cpp-httplib",
+    "nlohmann-json",
+    "gtest",
+    "fmt"
+  ]
+}
