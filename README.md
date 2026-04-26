@@ -99,7 +99,7 @@ Infrastructure is managed with Terraform (ECS Fargate + ALB, eu-west-1).
 
 ```bash
 # Bootstrap state backend (once)
-aws s3api create-bucket --bucket cube-solver-tfstate --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
+aws s3api create-bucket --bucket cube-solver-tfstate --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1 # update to your bucket name and region
 aws s3api put-bucket-versioning --bucket cube-solver-tfstate --versioning-configuration Status=Enabled
 aws dynamodb create-table --table-name cube-solver-tfstate-lock --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --billing-mode PAY_PER_REQUEST --region eu-west-1
 

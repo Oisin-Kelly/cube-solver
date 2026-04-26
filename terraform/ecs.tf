@@ -67,7 +67,7 @@ resource "aws_ecs_service" "app" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.app.arn
+    target_group_arn = aws_lb_target_group.cube.arn
     container_name   = "cube-app"
     container_port   = 8080
   }
