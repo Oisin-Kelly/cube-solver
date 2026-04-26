@@ -19,7 +19,7 @@ resource "aws_security_group" "ecs" {
 
 resource "aws_cloudwatch_log_group" "app" {
   name              = "/ecs/cube-solver"
-  retention_in_days = 30
+  retention_in_days = 7
 }
 
 resource "aws_ecs_cluster" "main" {
@@ -30,8 +30,8 @@ resource "aws_ecs_task_definition" "app" {
   family                   = "cube-task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "1024"
-  memory                   = "2048"
+  cpu                      = "256"
+  memory                   = "512"
   execution_role_arn       = aws_iam_role.ecs_task_execution.arn
 
   container_definitions = jsonencode([
@@ -57,12 +57,13 @@ resource "aws_ecs_service" "app" {
   name            = "cube-service"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = 2
+  desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets         = [aws_subnet.private_a.id, aws_subnet.private_b.id]
-    security_groups = [aws_security_group.ecs.id]
+    subnets          = [aws_subnet.public_a.id, aws_subnet.public_b.id]
+    security_groups  = [aws_security_group.ecs.id]
+    assign_public_ip = true
   }
 
   load_balancer {
