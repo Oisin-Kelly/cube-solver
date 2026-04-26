@@ -3,31 +3,34 @@ project(CubeSolver)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(${PROJECT_SOURCE_DIR})
+find_package(httplib CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(GTest CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
-set(SOURCES
-    main.cpp
-    Cube.cpp
-    CrossSolver.cpp
-    CornerSolver.cpp
-    EdgesSolver.cpp
-    BottomCrossSolver.cpp
-    BottomSolver.cpp
-    Helpers.cpp
+add_library(cube_solver_lib STATIC
+    src/Cube.cpp
+    src/Helpers.cpp
+    src/CrossSolver.cpp
+    src/CornerSolver.cpp
+    src/EdgesSolver.cpp
+    src/BottomCrossSolver.cpp
+    src/BottomSolver.cpp
+    src/CubeSolverLib.cpp
 )
+target_include_directories(cube_solver_lib PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
-set(HEADERS
-    Constants.hpp
-    CrossSolver.hpp
-    CornerSolver.hpp
-    EdgesSolver.hpp
-    BottomCrossSolver.hpp
-    BottomSolver.hpp
-    Cube.hpp
-    Face.hpp
-    Helpers.hpp
-    Solver.hpp
-    PairHash.hpp
+add_executable(CubeSolver src/main.cpp)
+target_link_libraries(CubeSolver PRIVATE cube_solver_lib)
+
+add_executable(CubeSolverServer src/server.cpp)
+target_link_libraries(CubeSolverServer PRIVATE cube_solver_lib nlohmann_json::nlohmann_json httplib::httplib fmt::fmt)
+
+enable_testing()
+add_executable(CubeSolverTests
+    tests/test_optimise.cpp
+    tests/test_solve.cpp
 )
-
-add_executable(CubeSolver ${SOURCES} ${HEADERS})
+target_link_libraries(CubeSolverTests PRIVATE cube_solver_lib GTest::gtest GTest::gtest_main)
+include(GoogleTest)
+gtest_discover_tests(CubeSolverTests)
