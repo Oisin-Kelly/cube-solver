@@ -13,8 +13,8 @@ A Rubik's cube solver using the beginner's method.
 ## Build
 
 ```bash
-cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release
-cmake --build build
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build build -- -j$(nproc)
 ```
 
 ## CLI

@@ -100,5 +100,5 @@ namespace Constants
          {51, 42, 35},
          {45, 15, 44}}};
 
-    constexpr std::array<u_int8_t, 6> CENTRE_INDICES = {4, 13, 22, 31, 40, 49};
+    constexpr std::array<uint8_t, 6> CENTRE_INDICES = {4, 13, 22, 31, 40, 49};
 }
