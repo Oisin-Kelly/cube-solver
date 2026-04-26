@@ -42,7 +42,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: cube-solver
-          IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
