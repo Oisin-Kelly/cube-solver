@@ -21,9 +21,8 @@ COPY src/ src/
 
 RUN cmake -B build -S . \
     -DCMAKE_TOOLCHAIN_FILE=/vcpkg/scripts/buildsystems/vcpkg.cmake \
-    -DVCPKG_TARGET_TRIPLET=x64-linux-static \
     -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build --target CubeSolverServer
+    cmake --build build --target CubeSolverServer -- -j$(nproc)
 
 FROM ubuntu:24.04
 
