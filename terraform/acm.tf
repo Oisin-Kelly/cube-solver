@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "api.oisinkelly.dev"
+  domain_name       = "cube.oisinkelly.dev"
   validation_method = "DNS"
 
   lifecycle {
@@ -7,12 +7,7 @@ resource "aws_acm_certificate" "cert" {
   }
 }
 
-output "acm_validation_cname_name" {
-  value       = one(aws_acm_certificate.cert.domain_validation_options).resource_record_name
-  description = "CNAME record name"
-}
-
-output "acm_validation_cname_value" {
-  value       = one(aws_acm_certificate.cert.domain_validation_options).resource_record_value
-  description = "CNAME record value"
+resource "aws_acm_certificate_validation" "cert" {
+  certificate_arn         = aws_acm_certificate.cert.arn
+  validation_record_fqdns = [for r in aws_route53_record.cert_validation : r.fqdn]
 }
