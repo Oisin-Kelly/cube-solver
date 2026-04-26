@@ -5,6 +5,7 @@
 #include "CornerSolver.hpp"
 #include "EdgesSolver.hpp"
 #include "BottomSolver.hpp"
+#include <stdexcept>
 
 std::vector<std::tuple<Face, int>> optimiseMoves(std::vector<std::tuple<Face, int>> moves)
 {
