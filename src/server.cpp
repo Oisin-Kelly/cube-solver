@@ -3,7 +3,7 @@
 #include "Constants.hpp"
 #include <httplib.h>
 #include <nlohmann/json.hpp>
-#include <fmt/core.h>
+#include <fmt/format.h>
 
 using json = nlohmann::json;
 
