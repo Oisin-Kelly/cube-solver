@@ -1,5 +1,5 @@
 data "aws_route53_zone" "main" {
-  name = "oisinkelly.dev"
+  name = local.root_domain
 }
 
 resource "aws_route53_record" "cert_validation" {
@@ -20,7 +20,7 @@ resource "aws_route53_record" "cert_validation" {
 
 resource "aws_route53_record" "cube" {
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "cube.oisinkelly.dev"
+  name    = local.cube_domain
   type    = "A"
 
   alias {

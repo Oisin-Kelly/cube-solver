@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "cube.oisinkelly.dev"
+  domain_name       = local.cube_domain
   validation_method = "DNS"
 
   lifecycle {

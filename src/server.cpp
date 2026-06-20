@@ -75,6 +75,9 @@ int main()
                              {"Access-Control-Allow-Methods", "POST, GET, OPTIONS"},
                              {"Access-Control-Allow-Headers", "Content-Type"}});
 
+    svr.Options(".*", [](const httplib::Request &, httplib::Response &res)
+                { res.status = 204; });
+
     svr.Get("/health", [](const httplib::Request &, httplib::Response &res)
             { res.set_content("ok", "text/plain"); });
 
@@ -82,13 +85,6 @@ int main()
         "/solve",
         [](const httplib::Request &req, httplib::Response &res)
         {
-            if (req.method != "POST")
-            {
-                res.status = 405;
-                res.set_content(errorResponse("Only POST method is allowed", "METHOD_NOT_ALLOWED").dump(), "application/json");
-                return;
-            }
-
             json body;
             try
             {

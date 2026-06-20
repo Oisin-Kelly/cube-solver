@@ -3,3 +3,8 @@ variable "image_tag" {
   type        = string
   default     = "latest"
 }
+
+locals {
+  root_domain = trimspace(file("${path.module}/../CNAME"))
+  cube_domain = "cube.${local.root_domain}"
+}
